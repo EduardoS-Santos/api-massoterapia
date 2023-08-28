@@ -15,12 +15,7 @@ app.set("view engine", "ejs");
 app.set("views", "src/views");
 
 //exemplo de middlewares
-app.use(
-  cors({
-    origin: "https://api-massoterapia-bem-estar.onrender.com/",
-    credentials: true,
-  })
-);
+
 app.use((req, res, next) => {
   header("Access-Control-Allow-Origin: **");
   res.setHeader(
