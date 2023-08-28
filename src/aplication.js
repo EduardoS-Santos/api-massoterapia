@@ -5,10 +5,16 @@ const MassModel = require("./models/massagemmodel");
 const SupModel = require("./models/suportemodel");
 const AgedModel = require("./models/agendamodel");
 const FeedbackModel = require("./models/feedbackmodel");
-
+const cors = require("cors");
 const app = express();
 
 app.use(express.json());
+
+app.use(
+  cors({
+    origin: "http://localhost:8100", // Defina a origem permitida
+  })
+);
 
 // caminhos
 app.set("view engine", "ejs");
