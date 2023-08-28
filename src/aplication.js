@@ -21,7 +21,6 @@ app.use((req, res, next) => {
   console.log(`Date ${new Date()}`);
   next();
 });
-fetch("http://some-site.com/cors-disabled/some.json", { mode: "no-cors" });
 // porta de conexao
 const port = 8080;
 
