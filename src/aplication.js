@@ -16,8 +16,8 @@ app.set("views", "src/views");
 
 //exemplo de middlewares
 app.use((req, res, next) => {
-  // header("Access-Control-Allow-Origin: *");
-  // header("Access-Control-Allow-Methods: POST, GET, PUT, DELETE");
+  header("Access-Control-Allow-Origin: *");
+  header("Access-Control-Allow-Methods: POST, GET, PUT, DELETE");
   // res.setHeader(
   //   "Access-Control-Allow-Origin",
   //   "https://api-massoterapia-bem-estar.onrender.com/"
@@ -28,9 +28,6 @@ app.use((req, res, next) => {
   //   "GET, POST, PUT, DELETE, OPTIONS"
   // );
   cors({
-    origin: "https://api-massoterapia-bem-estar.onrender.com/",
-    credentials: true,
-    methods: "GET,PUT,POST,OPTIONS",
     allowedHeaders: "Content-Type,Authorization",
   });
 
