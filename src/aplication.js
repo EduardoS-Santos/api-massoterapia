@@ -18,17 +18,6 @@ app.set("views", "src/views");
 
 app.use((req, res, next) => {
   header("Access-Control-Allow-Origin: **");
-  res.setHeader(
-    "Access-Control-Allow-Origin",
-    "https://api-massoterapia-bem-estar.onrender.com/"
-  );
-
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Accept");
-
-  res.setHeader(
-    "Access-Control-Allow-Methods",
-    "GET, POST, PUT, DELETE, OPTIONS"
-  );
 
   console.log(`Request Type: ${req.method}`);
   console.log(`Content Type: ${req.headers["content-type"]}`);
