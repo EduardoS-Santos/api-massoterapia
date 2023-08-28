@@ -27,9 +27,6 @@ app.use((req, res, next) => {
   //   "Access-Control-Allow-Methods",
   //   "GET, POST, PUT, DELETE, OPTIONS"
   // );
-  cors({
-    allowedHeaders: "Content-Type,Authorization",
-  });
 
   console.log(`Request Type: ${req.method}`);
   console.log(`Content Type: ${req.headers["content-type"]}`);
