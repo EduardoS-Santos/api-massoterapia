@@ -17,7 +17,7 @@ app.set("views", "src/views");
 //exemplo de middlewares
 app.use((req, res, next) => {
   header("Access-Control-Allow-Origin: *");
-  header("Access-Control-Allow-Methods: POST, GET, OPTIONS, PUT, DELETE");
+  header("Access-Control-Allow-Methods:*");
 
   console.log(`Request Type: ${req.method}`);
   console.log(`Content Type: ${req.headers["content-type"]}`);
