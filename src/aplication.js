@@ -1,11 +1,12 @@
 const express = require("express");
+const cors = require("cors");
 const UserModel = require("./models/usermodel");
 const FuncModel = require("./models/funcmodel");
 const MassModel = require("./models/massagemmodel");
 const SupModel = require("./models/suportemodel");
 const AgedModel = require("./models/agendamodel");
 const FeedbackModel = require("./models/feedbackmodel");
-const cors = require("cors");
+
 const app = express();
 
 app.use(express.json());
@@ -21,6 +22,11 @@ app.set("view engine", "ejs");
 app.set("views", "src/views");
 
 //exemplo de middlewares
+app.use(
+  cors({
+    origin: "http://localhost:8100",
+  })
+);
 app.use((req, res, next) => {
   console.log(`Request Type: ${req.method}`);
   console.log(`Content Type: ${req.headers["content-type"]}`);
