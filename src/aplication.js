@@ -16,17 +16,26 @@ app.set("views", "src/views");
 
 //exemplo de middlewares
 app.use((req, res, next) => {
-  header("Access-Control-Allow-Origin: *");
-  header("Access-Control-Allow-Methods: POST, GET, PUT, DELETE");
-  res.setHeader(
-    "Access-Control-Allow-Origin",
-    "https://api-massoterapia-bem-estar.onrender.com/"
+  // header("Access-Control-Allow-Origin: *");
+  // header("Access-Control-Allow-Methods: POST, GET, PUT, DELETE");
+  // res.setHeader(
+  //   "Access-Control-Allow-Origin",
+  //   "https://api-massoterapia-bem-estar.onrender.com/"
+  // );
+  // res.setHeader("Access-Control-Allow-Headers", "Content-Type, Accept");
+  // res.setHeader(
+  //   "Access-Control-Allow-Methods",
+  //   "GET, POST, PUT, DELETE, OPTIONS"
+  // );
+  app.use(
+    cors({
+      origin: "https://api-massoterapia-bem-estar.onrender.com/",
+      credentials: true,
+      methods: "GET,PUT,POST,OPTIONS",
+      allowedHeaders: "Content-Type,Authorization",
+    })
   );
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Accept");
-  res.setHeader(
-    "Access-Control-Allow-Methods",
-    "GET, POST, PUT, DELETE, OPTIONS"
-  );
+
   console.log(`Request Type: ${req.method}`);
   console.log(`Content Type: ${req.headers["content-type"]}`);
   console.log(`Date ${new Date()}`);
