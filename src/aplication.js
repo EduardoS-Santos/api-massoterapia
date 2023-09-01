@@ -470,7 +470,7 @@ app.post("/agendamento", async (req, res) => {
 // localiza todos os agendamento com on
 app.get("/agendamento", async (req, res) => {
   try {
-    const agend = await AgedModel.find({ statusAgend: "marcado });
+    const agend = await AgedModel.find({ statusAgend: "marcado" });
 
     res.status(200).json(agend);
   } catch (error) {
