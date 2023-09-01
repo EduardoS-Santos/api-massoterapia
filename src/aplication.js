@@ -394,7 +394,7 @@ app.post("/suporte", async (req, res) => {
 // localiza todos os suporte com on
 app.get("/suporte", async (req, res) => {
   try {
-    const sup = await SupModel.find({ supStatus: "marcado" });
+    const sup = await SupModel.find({ supStatus: "on" });
 
     res.status(200).json(sup);
   } catch (error) {
@@ -470,7 +470,7 @@ app.post("/agendamento", async (req, res) => {
 // localiza todos os agendamento com on
 app.get("/agendamento", async (req, res) => {
   try {
-    const agend = await AgedModel.find({ statusAgend: "on" });
+    const agend = await AgedModel.find({ statusAgend: "marcado });
 
     res.status(200).json(agend);
   } catch (error) {
