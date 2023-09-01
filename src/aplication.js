@@ -394,7 +394,7 @@ app.post("/suporte", async (req, res) => {
 // localiza todos os suporte com on
 app.get("/suporte", async (req, res) => {
   try {
-    const sup = await SupModel.find({ supStatus: "on" });
+    const sup = await SupModel.find({ supStatus: "marcado" });
 
     res.status(200).json(sup);
   } catch (error) {
