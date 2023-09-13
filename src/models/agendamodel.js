@@ -19,12 +19,11 @@ const agenSchema = new mongoose.Schema({
   },
   horaMass: {
     type: String,
-    enum: ["08:00", "09:00", "10:00", "11:00"],
     required: true,
   },
   statusAgend: {
     type: String,
-    enum: ["marcado", "desmarcado", "ausente"],
+    enum: ["marcado", "desmarcado", "ausente","concluido"],
     required: true,
   },
 });
