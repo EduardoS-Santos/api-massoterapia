@@ -24,11 +24,6 @@ app.set("view engine", "ejs");
 app.set("views", "src/views");
 
 //exemplo de middlewares
-app.use(
-  cors({
-    origin: "http://localhost:8100",
-  })
-);
 app.use((req, res, next) => {
   console.log(`Request Type: ${req.method}`);
   console.log(`Content Type: ${req.headers["content-type"]}`);
