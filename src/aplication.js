@@ -12,16 +12,11 @@ const app = express();
 app.use(express.json());
 
 app.use(
-  cors({
-origin: "https://bem-estar-massoterapia.onrender.com" // Defina a origem permitida
-  })
+  cors(
+    { origin: "http://localhost:8080" },
+  ),
 );
 
-// caminhos
-app.set("view engine", "ejs");
-app.set("views", "src/views");
-
-//exemplo de middlewares
 app.use((req, res, next) => {
   console.log(`Request Type: ${req.method}`);
   console.log(`Content Type: ${req.headers["content-type"]}`);
@@ -118,11 +113,10 @@ app.delete("/users/:id", async (req, res) => {
 
 // login usuario
 
-app.get("/users/:email/:senha", async (req, res) => {
+app.post("/login", async (req, res) => {
   try {
-    const email = req.params.email;
-    const senha = req.params.senha;
-    const users = await UserModel.find({ userEmail: email, userSenha: senha });
+    const singIn = req.body;
+    const users = await UserModel.findOne(singIn);
 
     res.status(200).json(users);
   } catch (error) {
@@ -207,13 +201,12 @@ app.delete("/func/:id", async (req, res) => {
   }
 });
 
-// login usuario
+// login funcionario
 
-app.get("/func/:email/:senha", async (req, res) => {
+app.post("/loginf", async (req, res) => {
   try {
-    const email = req.params.email;
-    const senha = req.params.senha;
-    const funcs = await FuncModel.find({ emailFunc: email, senhaFunc: senha });
+    const singInf = req.body;
+    const funcs = await FuncModel.findOne(singInf);
 
     res.status(200).json(funcs);
   } catch (error) {
@@ -237,7 +230,7 @@ app.post("/massagem", async (req, res) => {
 
 app.get("/massagem", async (req, res) => {
   try {
-    const mass = await MassModel.find({ massStatus: "on" });
+    const mass = await MassModel.find({ massStatus: "ON" });
 
     res.status(200).json(mass);
   } catch (error) {
@@ -461,6 +454,45 @@ app.post("/agendamento", async (req, res) => {
     res.status(500).send(error.message);
   }
 });
+
+// carregar agendamentos para o usuario
+app.get("/listaragendu/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    const agend = await AgedModel.find({
+      idUser: id,
+      statusAgend: "marcado",
+    });
+
+    res.status(200).json(agend);
+  } catch (error) {
+    return res.status(500).send(error.message);
+  }
+});
+
+// carregar agendamentos para o funcionario
+
+app.get("/listaragendf", async (req,res)=>{
+try {
+    const agendamentos = await AgedModel.find({ statusAgend: "marcado" })
+      .populate('idUser', 'userNome')
+      .populate('idMass', 'massNome')
+      .lean(); // Fundamental para podermos alterar o objeto
+
+    const resultadoFormatado = agendamentos.map(agendamento => ({
+      ...agendamento,
+      // Se o populate funcionar, substitui pelo nome. Se falhar, mantém o ID original.
+      idUser: agendamento.idUser?.userNome || agendamento.idUser,
+      idMass: agendamento.idMass?.massNome || agendamento.idMass
+    }));
+
+    res.status(200).json(resultadoFormatado);
+  } catch (error) {
+    return res.status(500).send(error.message);
+  }
+})
+
+
 
 // localiza todos os agendamento com on
 app.get("/agendamento", async (req, res) => {

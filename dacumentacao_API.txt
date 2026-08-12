@@ -1,0 +1,46 @@
+utilizando Mongoose criamos a conexao com MongoDB utlizando a funcao .connect() 
+
+depois criamos 6 modelos utilizando a funcao .Schema()
+
+| UserMass --- { userNome: string ,userEmail: string, userTelefone: number, userSenha: string, userCargo: string, userStatus: string(ENUM["on","off"])}
+| funcionarioMass --- {nameFunc: string, cpfFunc: string, emailFunc: string, telefoneFunc: number, senhaFunc: string, cargoFunc: string, statusFunc: string(ENUM["on","off"])}
+| Massagens --- { massNome: string, massDescricao: string, massPreco: string, massStatus: string(ENUM["on","off"]) }
+| Agendamento --- {idUser: string ref:UserMass, idFunc: string, idMass: string ref:Massagens, dataMass: string, horaMass: string, statusAgend: string ENUM["marcado","desmarcado","ausente"]}
+| Feedback --- {feedMessage: string, feddCargo: string, feedStatus: string(ENUM["on","off"])}
+| Suporte --- {supMessage: string, supCargo: string, supStatus: string(ENUM["on","off"])}
+
+
+Em seguida importamos o Express e utilizamos a funcao express().use() para setar configuracoes de seguranca e contratos
+
+No cors liberamos a origem da aplicacao apos hospedala no render.com
+
+Depois sertamos a porta utilizada pelo servidor 
+
+Para requisicoes POST pegamos o body da requisicao e aplicamos na funcao .create() acompanhado do modelo esperado atraves da funcao .model()
+
+Com excessao do findOne() utlizado nas requisicoes POST relacionadas a Login tanto no usuario quando no funcionario
+
+Para requisicoes GET  utilizamos as funcoes .find(), .findById() e .populate() em conjunto com .model 
+
+Para requisicoes PACTH utilizamos .findByIdAndUpdate() para maior precisao minmizacao de erros
+
+.findByIdAndUpdate() tambem foi utilizado para a criacao de contrato de delecao com intuito de minimizar falhas na aplicacao ou nao carregamento , agindo como desable de certos tipos de dados.
+
+E por fim para as requisicoes DELETE utilizamos .findByIdAndRemove() removendo para sempre o arquivo da sua colecao
+
+Sobre URLs temos as seguintes CRUDS e Sistemas de Login
+
+/users --- acata todas requisicoes do CRUD desde que as condicoes sejam atendidas, apresentando excessoes apenas em "/users/:id"  e "/users/del/:id"para PACTH  onde necessitam de uma / e um id valido.
+/func --- acata todas requisicoes do CRUD desde que as condicoes sejam atendidas, apresentando excessoes apenas em "/func/:id"  e "/func/del/:id" para PACTH onde necessitam de uma / e um id valido.
+/massagem --- acata todas requisicoes do CRUD desde que as condicoes sejam atendidas, apresentando excessoes apenas em "/massagem/:id"  e "/massagem/del/:id" para PACTH onde necessitam de uma / e um id valido.
+/feedback --- acata todas requisicoes do CRUD desde que as condicoes sejam atendidas, apresentando excessoes apenas em "/feedback/:id"  e "/feedback/del/:id" para PACTH onde necessitam de uma / e um id valido.
+/suporte --- acata todas requisicoes do CRUD desde que as condicoes sejam atendidas, apresentando excessoes apenas em "/suporte/:id"  e "/suporte/del/:id" para PACTH onde necessitam de uma / e um id valido.
+/agendamento --- acata todas requisicoes do CRUD desde que as condicoes sejam atendidas, apresentando excessoes apenas em "/agendamento/:id"  e "/agendamento/del/:id" para PACTH onde necessitam de uma / e um id valido.
+
+Requisicoes GET Extras e Servicoes via requisicao
+
+/listaragendu - Busca agendamentos marcados do usuario retornando um array[] de objetos
+/listaragendF - Busca agendamentos marcados do usuario fazendo um "join" utilizando .model() , .find() e .populate() para resgatar em outras colecoes dados de nome da massagem e nome do usuario no lugar de seus devidos IDs retornando um array[] de objetos 
+/Login --- autortiza o login caso o corpo da requisicao seja encotrado via .model() e .findOne() mandado os dados do usuario para o solicitante
+/loginf --- autortiza o login caso o corpo da requisicao seja encotrado via .model() e .findOne() mandado os dados do usuario para o solicitante
+

@@ -3,7 +3,8 @@ const mongoose = require("mongoose");
 const connectToDatabase = async () => {
   await mongoose
     .connect(
-      `mongodb+srv://${process.env.MONGODB_USER}:${process.env.MONGODB_PASS}@faculdadeestudos.griop.mongodb.net/?retryWrites=true&w=majority&appName=FaculdadeEstudos`
+      //`mongodb+srv://${process.env.MONGODB_USER}:${process.env.MONGODB_PASS}@hotel.mthf7jq.mongodb.net/beme_star_massoterapia?retryWrites=true&w=majority`
+      `${process.env.URL}`
     )
     .then(() => {
       console.log("Conexao com banco de dados realizada com sucesso");

@@ -16,6 +16,8 @@ const massSchema = new mongoose.Schema({
   massStatus: {
     type: String,
     required: true,
+    enum: ["ON", "OFF"],
+    default: "ON",
   },
 });
 

@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const agenSchema = new mongoose.Schema({
   idUser: {
     type: String,
+    ref: "UsersMass",
     required: true,
   },
   idFunc: {
@@ -11,6 +12,7 @@ const agenSchema = new mongoose.Schema({
   },
   idMass: {
     type: String,
+    ref:"Massagens",
     required: true,
   },
   dataMass: {
@@ -23,7 +25,7 @@ const agenSchema = new mongoose.Schema({
   },
   statusAgend: {
     type: String,
-    enum: ["marcado", "desmarcado", "ausente","concluido"],
+    enum: ["marcado", "desmarcado", "ausente"],
     required: true,
   },
 });
